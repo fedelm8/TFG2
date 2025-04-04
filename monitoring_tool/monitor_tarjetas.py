@@ -30,8 +30,8 @@ def registrar_log(usuario, ip):
         print(f"[X] Error al escribir en el log: {e}")
 
 def enviar_alerta_gmail(usuario, ip):
-    remitente = "judelinebellingham@gmail.com"
-    receptor = "judelinebellingham@gmail.com"
+    remitente = "pruebasfede1111@gmail.com"
+    receptor = "pruebasfede1111@gmail.com"
     asunto = "ALERTA: Acceso al archivo sensible"
     mensaje = f"""
 Se ha detectado un intento de lectura en tarjetas_bancarias.txt
@@ -42,7 +42,8 @@ Se ha detectado un intento de lectura en tarjetas_bancarias.txt
 - Hora: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 """
 
-    contrasena = "grkyynyhfuxecing"  #contraseña de aplicación
+    ##contrasena = "grkyynyhfuxecing"  #contraseña de aplicación
+    contrasena = "gsxacdvzlnelgitx"
 
     msg = MIMEMultipart()
     msg["From"] = remitente
