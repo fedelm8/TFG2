@@ -2,7 +2,6 @@
 
 ## Descripción
 
-<!--
 Esta herramienta monitorea en tiempo real los accesos a archivos sensibles del sistema, como `/etc/shadow` y `/etc/passwd`, que son comúnmente utilizados para la gestión de contraseñas y usuarios en sistemas Linux. 
 
 Cuando la herramienta detecta un intento de acceso no autorizado a estos archivos, realiza las siguientes acciones:
@@ -33,4 +32,3 @@ La herramienta se ejecuta como un servicio en segundo plano mediante **`systemd`
    Si la herramienta requiere bibliotecas adicionales, instala las dependencias con:
    ```bash
    pip install -r requirements.txt
--->
