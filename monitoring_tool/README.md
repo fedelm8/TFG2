@@ -1,5 +1,5 @@
 
-# Monitoring_tool
+# 🛡️ Monitoring_tool
 
 *Secure your data, empower your peace of mind.*
 
@@ -18,9 +18,6 @@ _Built with the tools and technologies:_
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation and Usage](#installation-and-usage)
-- [Contributing](#contributing)
-- [Roadmap](#roadmap)
-- [License](#license)
 
 ---
 
@@ -52,15 +49,8 @@ This project enhances system security by providing continuous oversight of criti
 
 ## Installation and Usage
 
-### 1. Clone the Repository
 
-```bash
-git clone https://github.com/tuusuario/TFG2.git
-cd TFG2
-pip install -r requirements.txt
-```
-
-### 2. Install `auditd`
+### 1. Install `auditd`
 
 ```bash
 sudo apt update
@@ -69,33 +59,33 @@ sudo systemctl enable auditd
 sudo systemctl start auditd
 ```
 
-### 3. Install Git and Python3
+### 2. Install Git and Python3
 
 ```bash
 sudo apt install -y git python3 python3-pip
 ```
 
-### 4. Clone the Project
+### 3. Clone the Project
 
 ```bash
 cd ~/Documents
 git clone https://github.com/fedelm8/TFG2
 ```
 
-### 5. Create a Sensitive File to Monitor
+### 4. Create a Sensitive File to Monitor
 
 ```bash
 sudo nano tarjetas_bancarias.txt
 sudo chmod 644 tarjetas_bancarias.txt
 ```
 
-### 6. Add Temporary Audit Rule for Testing
+### 5. Add Temporary Audit Rule for Testing
 
 ```bash
 sudo auditctl -w /home/osboxes/Documents/tarjetas_bancarias.txt -p r -k acceso_tarjetas
 ```
 
-### 7. Make Audit Rule Permanent
+### 6. Make Audit Rule Permanent
 
 ```bash
 sudo nano /etc/audit/rules.d/monitor.rules
@@ -112,20 +102,20 @@ sudo systemctl restart auditd
 sudo auditctl -l  # Verify rule
 ```
 
-### 8. Set Up Gmail
+### 7. Set Up Gmail
 
 - Go to: https://myaccount.google.com/security  
 - Create an App Password: https://myaccount.google.com/apppasswords  
 - Name: `monitor_tarjetas`  
 - Copy the generated key (e.g., `grkyy nyhf uxec iing`)
 
-### 9. Edit Script with App Password
+### 8. Edit Script with App Password
 
 ```bash
 sudo nano monitor_tarjetas.py
 ```
 
-### 10. Save Script Securely
+### 9. Save Script Securely
 
 ```bash
 sudo mkdir -p /opt/monitor_archivo
@@ -134,7 +124,7 @@ sudo chmod 700 /opt/monitor_archivo/monitor_tarjetas.py
 sudo chown root:root /opt/monitor_archivo/monitor_tarjetas.py
 ```
 
-### 11. Turn Script Into a systemd Service
+### 10. Turn Script Into a systemd Service
 
 ```bash
 sudo nano /etc/systemd/system/monitor_tarjetas.service
@@ -164,7 +154,7 @@ sudo systemctl enable monitor_tarjetas.service
 sudo systemctl start monitor_tarjetas.service
 ```
 
-### 12. Verify Service Status
+### 11. Verify Service Status
 
 ```bash
 sudo systemctl status monitor_tarjetas.service
@@ -172,43 +162,3 @@ sudo systemctl status monitor_tarjetas.service
 
 ---
 
-## Contributing
-
-So you want to help? That’s adorable.
-
-1. Fork the repo  
-2. Create your feature branch  
-   ```bash
-   git checkout -b feature/YourAmazingFeature
-   ```
-3. Commit your changes  
-   ```bash
-   git commit -m "Add something marginally useful"
-   ```
-4. Push to your branch  
-   ```bash
-   git push origin feature/YourAmazingFeature
-   ```
-5. Open a pull request and try to sound humble 😅
-
-Pull requests are welcome, but they will be judged. Brutally.
-
----
-
-## Roadmap
-
-Here’s what we pretend to do, assuming we don’t get distracted:
-
-- [ ] Web interface for monitoring logs  
-- [ ] Email notifications for alerts  
-- [ ] Cross-platform support (Windows & macOS)  
-- [ ] Integration with cloud storage for secure backup  
-- [ ] GUI installer for people who fear the terminal  
-
-*Feel free to submit feature requests disguised as issues.*
-
----
-
-## License
-
-MIT © [Tu Nombre o Usuario]
