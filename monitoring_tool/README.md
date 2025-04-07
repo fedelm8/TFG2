@@ -90,7 +90,6 @@ This project enhances system security by providing continuous oversight of criti
 git clone https://github.com/tuusuario/TFG2.git
 cd TFG2
 pip install -r requirements.txt
-#hjcksdf
 cd TFG
 
 ```bash
