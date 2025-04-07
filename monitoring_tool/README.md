@@ -1,37 +1,3 @@
-# Herramienta de Monitoreo de Accesos a Archivos Sensibles
-
-## Descripción
-
-Esta herramienta monitorea en tiempo real los accesos a archivos sensibles del sistema, como `/etc/shadow` y `/etc/passwd`, que son comúnmente utilizados para la gestión de contraseñas y usuarios en sistemas Linux. 
-
-Cuando la herramienta detecta un intento de acceso no autorizado a estos archivos, realiza las siguientes acciones:
-- Envía una alerta por correo electrónico.
-- Bloquea el proceso relacionado con el acceso, si es necesario.
-
-La herramienta se ejecuta como un servicio en segundo plano mediante **`systemd`**, lo que permite que se ejecute de manera continua incluso después de reiniciar el sistema.
-
----
-
-## **Requisitos**
-
-### **Dependencias del sistema**
-1. **`auditd`**: Necesario para auditar los accesos a archivos sensibles.
-   - Instalación:
-     ```bash
-     sudo apt-get install auditd
-     ```
-
-2. **Python 3.x**: Necesario para ejecutar los scripts.
-   - Asegúrate de tener Python 3 instalado.
-   - Puedes verificar la versión de Python con:
-     ```bash
-     python3 --version
-     ```
-
-3. **Bibliotecas de Python** (si las necesitas):
-   Si la herramienta requiere bibliotecas adicionales, instala las dependencias con:
-   ```bash
-   pip install -r requirements.txt
 
 # Monitoring_tool
 
@@ -49,11 +15,9 @@ _Built with the tools and technologies:_
 
 ## Table of Contents
 
-## Table of Contents
-
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Installation and Usage](#installation)
+- [Installation and Usage](#installation-and-usage)
 - [Contributing](#contributing)
 - [Roadmap](#roadmap)
 - [License](#license)
@@ -76,76 +40,108 @@ This project enhances system security by providing continuous oversight of criti
 
 ---
 
-
 ## Prerequisites
 
-- `Python 3.x`
-- `pip`
-- `systemd` : to execute automatically the script. 
-- `Gmail (SMTP)` : for sending the alert.
-- `auditd` : for detecting file accesses.
+- Python 3.x  
+- `pip`  
+- `systemd`: to execute the script automatically  
+- Gmail (SMTP): for sending alerts  
+- `auditd`: for detecting file accesses  
 
-## Installation
+---
+
+## Installation and Usage
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/tuusuario/TFG2.git
 cd TFG2
 pip install -r requirements.txt
+```
 
-##Install auditd
+### 2. Install `auditd`
+
+```bash
 sudo apt update
 sudo apt install auditd
 sudo systemctl enable auditd
 sudo systemctl start auditd
+```
 
-##Instal git and Python3
+### 3. Install Git and Python3
+
+```bash
 sudo apt install -y git python3 python3-pip
+```
 
-cd Documents
+### 4. Clone the Project
 
-##Clone Github repository in Documents
+```bash
+cd ~/Documents
 git clone https://github.com/fedelm8/TFG2
+```
 
-##Create the delicate file
+### 5. Create a Sensitive File to Monitor
+
+```bash
 sudo nano tarjetas_bancarias.txt
 sudo chmod 644 tarjetas_bancarias.txt
+```
 
-##Add temporal audit tool for testing
+### 6. Add Temporary Audit Rule for Testing
+
+```bash
 sudo auditctl -w /home/osboxes/Documents/tarjetas_bancarias.txt -p r -k acceso_tarjetas
+```
 
-##Make it permanent
+### 7. Make Audit Rule Permanent
+
+```bash
 sudo nano /etc/audit/rules.d/monitor.rules
-##File content
+```
+
+**File content:**
+```
 -w /home/osboxes/Documents/tarjetas_bancarias.txt -p r -k acceso_tarjetas
-##Aply rule
+```
+
+```bash
 sudo augenrules --load
 sudo systemctl restart auditd
-##Check the rule
-sudo auditctl -l
+sudo auditctl -l  # Verify rule
+```
 
-##Prepare Gmail
-##Open Internet:
-##https://myaccount.google.com/security
-#Create app password
-##https://myaccount.google.com/apppasswords
-##Name: monitor_tarjetas
-##Copy the key (ex: grkyy nyhf uxec iing)
+### 8. Set Up Gmail
 
-##Change password that we copied before
+- Go to: https://myaccount.google.com/security  
+- Create an App Password: https://myaccount.google.com/apppasswords  
+- Name: `monitor_tarjetas`  
+- Copy the generated key (e.g., `grkyy nyhf uxec iing`)
+
+### 9. Edit Script with App Password
+
+```bash
 sudo nano monitor_tarjetas.py
+```
 
-##Save script in a protected file (only for sudo)
+### 10. Save Script Securely
+
+```bash
 sudo mkdir -p /opt/monitor_archivo
 sudo cp monitor_tarjetas.py /opt/monitor_archivo/
 sudo chmod 700 /opt/monitor_archivo/monitor_tarjetas.py
 sudo chown root:root /opt/monitor_archivo/monitor_tarjetas.py
+```
 
+### 11. Turn Script Into a systemd Service
 
-##Turn it into a systemd service
-
+```bash
 sudo nano /etc/systemd/system/monitor_tarjetas.service
+```
 
-##Content:
+**Service content:**
+```ini
 [Unit]
 Description=Monitor de accesos a archivo sensible
 After=network.target auditd.service
@@ -159,49 +155,60 @@ Group=root
 
 [Install]
 WantedBy=multi-user.target
+```
 
-
-##Start the service
+```bash
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable monitor_tarjetas.service
 sudo systemctl start monitor_tarjetas.service
-
-##Verify
-
-sudo systemctl status monitor_tarjetas.service
-
 ```
 
-##Contributing
+### 12. Verify Service Status
+
+```bash
+sudo systemctl status monitor_tarjetas.service
+```
+
+---
+
+## Contributing
+
 So you want to help? That’s adorable.
 
-Fork the repo
-
-Create your feature branch (git checkout -b feature/YourAmazingFeature)
-
-Commit your changes (git commit -m 'Add something marginally useful')
-
-Push to the branch (git push origin feature/YourAmazingFeature)
-
-Open a pull request and try to sound humble
+1. Fork the repo  
+2. Create your feature branch  
+   ```bash
+   git checkout -b feature/YourAmazingFeature
+   ```
+3. Commit your changes  
+   ```bash
+   git commit -m "Add something marginally useful"
+   ```
+4. Push to your branch  
+   ```bash
+   git push origin feature/YourAmazingFeature
+   ```
+5. Open a pull request and try to sound humble 😅
 
 Pull requests are welcome, but they will be judged. Brutally.
 
-##Roadmap
+---
+
+## Roadmap
+
 Here’s what we pretend to do, assuming we don’t get distracted:
 
- Web interface for monitoring logs
+- [ ] Web interface for monitoring logs  
+- [ ] Email notifications for alerts  
+- [ ] Cross-platform support (Windows & macOS)  
+- [ ] Integration with cloud storage for secure backup  
+- [ ] GUI installer for people who fear the terminal  
 
- Email notifications for alerts
+*Feel free to submit feature requests disguised as issues.*
 
- Cross-platform support (Windows & macOS)
+---
 
- Integration with cloud storage for secure backup
+## License
 
- GUI installer for people who fear the terminal
-
-Feel free to submit feature requests disguised as issues.
-
-License
 MIT © [Tu Nombre o Usuario]
