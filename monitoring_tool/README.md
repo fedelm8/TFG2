@@ -49,12 +49,14 @@ _Built with the tools and technologies:_
 
 ## Table of Contents
 
+## Table of Contents
+
 - [Overview](#overview)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Testing](#testing)
+- [Prerequisites](#prerequisites)
+- [Installation and Usage](#installation)
+- [Contributing](#contributing)
+- [Roadmap](#roadmap)
+- [License](#license)
 
 ---
 
@@ -74,9 +76,8 @@ This project enhances system security by providing continuous oversight of criti
 
 ---
 
-## Getting Started
 
-### Prerequisites
+## Prerequisites
 
 - `Python 3.x`
 - `pip`
@@ -84,7 +85,7 @@ This project enhances system security by providing continuous oversight of criti
 - `Gmail (SMTP)` : for sending the alert.
 - `auditd` : for detecting file accesses.
 
-### Installation
+## Installation
 
 ```bash
 git clone https://github.com/tuusuario/TFG2.git
@@ -169,3 +170,38 @@ sudo systemctl start monitor_tarjetas.service
 ##Verify
 
 sudo systemctl status monitor_tarjetas.service
+
+```
+
+##Contributing
+So you want to help? That’s adorable.
+
+Fork the repo
+
+Create your feature branch (git checkout -b feature/YourAmazingFeature)
+
+Commit your changes (git commit -m 'Add something marginally useful')
+
+Push to the branch (git push origin feature/YourAmazingFeature)
+
+Open a pull request and try to sound humble
+
+Pull requests are welcome, but they will be judged. Brutally.
+
+##Roadmap
+Here’s what we pretend to do, assuming we don’t get distracted:
+
+ Web interface for monitoring logs
+
+ Email notifications for alerts
+
+ Cross-platform support (Windows & macOS)
+
+ Integration with cloud storage for secure backup
+
+ GUI installer for people who fear the terminal
+
+Feel free to submit feature requests disguised as issues.
+
+License
+MIT © [Tu Nombre o Usuario]
