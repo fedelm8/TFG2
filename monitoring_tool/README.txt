@@ -32,3 +32,62 @@ La herramienta se ejecuta como un servicio en segundo plano mediante **`systemd`
    Si la herramienta requiere bibliotecas adicionales, instala las dependencias con:
    ```bash
    pip install -r requirements.txt
+
+
+
+
+# TFG2
+
+*Secure your data, empower your peace of mind.*
+
+![Last Commit](https://img.shields.io/badge/last%20commit-today-brightgreen)
+![Python](https://img.shields.io/badge/python-100%25-blue)
+![Languages](https://img.shields.io/badge/languages-1-blue)
+
+_Built with the tools and technologies:_
+
+![Python](https://img.shields.io/badge/-Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Testing](#testing)
+
+---
+
+## Overview
+
+**TFG2** is a robust monitoring tool designed to safeguard sensitive files by detecting unauthorized access in real-time.
+
+### Why TFG2?
+
+This project enhances system security by providing continuous oversight of critical files. The core features include:
+
+- 🔐 **Real-time Monitoring**: Instantly detects unauthorized access attempts to sensitive files.
+- 🚨 **Alerts & Blocks**: Automatically alerts administrators and blocks suspicious processes to prevent breaches.
+- 🔄 **Continuous Operation**: Runs as a background service, ensuring ongoing surveillance even after system reboots.
+- 👤 **User Logging**: Captures user details and IP addresses for accountability and traceability.
+- ⚙️ **Systemd Integration**: Simplifies deployment with automatic service management for Linux systems.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8+
+- `pip`
+- `systemd` (for Linux-based deployments)
+
+### Installation
+
+```bash
+git clone https://github.com/tuusuario/TFG2.git
+cd TFG2
+pip install -r requirements.txt
