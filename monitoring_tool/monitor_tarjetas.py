@@ -133,7 +133,7 @@ def monitorear_accesos():
             logs = resultado.stdout.decode().split("\n\n")
 
             for log in logs:
-                if log and log not in eventos_detectados:
+                if log and log not in eventos_accesos:
                     # Extraer UID
                     uid_line = next((line for line in log.splitlines() if "uid=" in line and "auid=" in line), None)
                     uid = "desconocido"
@@ -161,7 +161,7 @@ def monitorear_accesos():
                     registrar_log(usuario, ip)
                     bloquear_archivo()
                     enviar_alerta_gmail(usuario, ip)
-                    eventos_detectados.add(log)
+                    eventos_accesos.add(log)
 
             time.sleep(INTERVALO)
 
@@ -183,7 +183,7 @@ def monitorear_defensa():
             logs = resultado.stdout.decode().split("\n\n")
 
             for log in logs:
-                if log and log not in eventos_detectados:
+                if log and log not in eventos_defensa:
                     uid_line = next((line for line in log.splitlines() if "uid=" in line and "auid=" in line), None)
                     uid = "desconocido"
                     usuario = "desconocido"
@@ -216,7 +216,7 @@ def monitorear_defensa():
                         registrar_log2(usuario, ip, recurso)
                         enviar_alerta_gmail2(usuario, ip, recurso)
 
-                    eventos_detectados.add(log)
+                    eventos_defensa.add(log)
 
             time.sleep(INTERVALO)
 
@@ -225,4 +225,5 @@ def monitorear_defensa():
 
 if __name__ == "__main__":
     monitorear_accesos()
+    monitorear_defensa()
 
