@@ -5,7 +5,7 @@
 
 ![Last Commit](https://img.shields.io/badge/last%20commit-today-brightgreen)
 ![Python](https://img.shields.io/badge/python-100%25-blue)
-![Platform](https://img.shields.io/badge/platform-Linux-orange)
+![Languages](https://img.shields.io/badge/languages-1-blue)
 
 _Built with the tools and technologies:_
 
