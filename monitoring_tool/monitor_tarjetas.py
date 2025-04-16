@@ -9,39 +9,22 @@ import pwd  # Para traducir UID a nombre de usuario
 
 ARCHIVO = os.path.expanduser("/home/osboxes/Documents/tarjetas_bancarias.txt")
 CLAVE = "acceso_tarjetas"
-CLAVE_DEFENSA = "clave_defensa"
 INTERVALO = 2  # Segundos entre chequeos
-SITIOS_RESTRINGIDOS = [
-    "/etc/shadow", "/etc/passwd", "/etc/sudoers", "/root", "/boot", "/var/log",
-    "/bin/bash", "/dev/mem", "/proc/kcore"
-]
-COMANDOS_PELIGROSOS = ["nmap", "tcpdump", "netstat", "bash", "nc", "rm", "chmod 777", "curl", "wget", "scp"]
-
 
 # Ruta del log en carpeta 'logs' junto al script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.join(BASE_DIR, "logs")
 LOG_PATH = os.path.join(LOG_DIR, "accesos.log")
-LOG_PATH2 = os.path.join(LOG_DIR, "defense.log")
 
 # Crear carpeta logs si no existe
 os.makedirs(LOG_DIR, exist_ok=True)
 
-eventos_accesos = set()
-eventos_defensa = set()
+eventos_detectados = set()
 
 def registrar_log(usuario, ip):
     mensaje = f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Usuario: {usuario} | IP: {ip}\n"
     try:
         with open(LOG_PATH, "a") as log_file:
-            log_file.write(mensaje)
-    except Exception as e:
-        print(f"[X] Error al escribir en el log: {e}")
-
-def registrar_log2(usuario, ip, recurso):
-    mensaje = f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Usuario: {usuario} | IP: {ip} | Acceso: {recurso}\n"
-    try:
-        with open(LOG_PATH2, "a") as log_file:
             log_file.write(mensaje)
     except Exception as e:
         print(f"[X] Error al escribir en el log: {e}")
@@ -77,39 +60,6 @@ Se ha detectado un intento de lectura en tarjetas_bancarias.txt
         print("[EMAIL] Alerta enviada por correo.")
     except Exception as e:
         print(f"[X] Error al enviar correo: {e}")
-
-def enviar_alerta_gmail2(usuario, ip, recurso):
-    remitente = "pruebasfede1111@gmail.com"
-    receptor = "pruebasfede1111@gmail.com"
-    asunto = "🚨 ALERTA DE SEGURIDAD: Acceso sospechoso al sistema"
-    mensaje = f"""
-Se ha detectado una posible intrusión o acceso no permitido al sistema operativo.
-
-🔍 Detalles:
-- Usuario: {usuario}
-- IP: {ip}
-- Recurso/Acción: {recurso}
-- Hora: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-"""
-
-    contrasena = "gsxacdvzlnelgitx"
-
-    msg = MIMEMultipart()
-    msg["From"] = remitente
-    msg["To"] = receptor
-    msg["Subject"] = asunto
-    msg.attach(MIMEText(mensaje, "plain"))
-
-    try:
-        servidor = smtplib.SMTP("smtp.gmail.com", 587)
-        servidor.starttls()
-        servidor.login(remitente, contrasena)
-        servidor.sendmail(remitente, receptor, msg.as_string())
-        servidor.quit()
-        print("[EMAIL] Alerta enviada por correo.")
-    except Exception as e:
-        print(f"[X] Error al enviar correo: {e}")
-
 
 def bloquear_archivo():
     try:
@@ -168,6 +118,7 @@ def monitorear_accesos():
     except KeyboardInterrupt:
         print("\n[+] Monitor finalizado por el usuario. Cerrando...")
 
+<<<<<<< HEAD
 # ===================== MONITOREO =====================
 def monitorear_defensa():
     print(f"[*] Defensa activa. Monitorizando accesos peligrosos...")
@@ -223,6 +174,8 @@ def monitorear_defensa():
     except KeyboardInterrupt:
         print("\n[+] Monitor finalizado por el usuario. Cerrando...")
 
+=======
+>>>>>>> parent of 955424f (prueba nueva funcionalidad)
 if __name__ == "__main__":
     monitorear_accesos()
     monitorear_defensa()
