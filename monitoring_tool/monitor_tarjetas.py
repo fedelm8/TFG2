@@ -83,7 +83,7 @@ def monitorear_accesos():
             logs = resultado.stdout.decode().split("\n\n")
 
             for log in logs:
-                if log and log not in eventos_accesos:
+                if log and log not in eventos_detectados:
                     # Extraer UID
                     uid_line = next((line for line in log.splitlines() if "uid=" in line and "auid=" in line), None)
                     uid = "desconocido"
@@ -111,72 +111,14 @@ def monitorear_accesos():
                     registrar_log(usuario, ip)
                     bloquear_archivo()
                     enviar_alerta_gmail(usuario, ip)
-                    eventos_accesos.add(log)
+                    eventos_detectados.add(log)
 
             time.sleep(INTERVALO)
 
     except KeyboardInterrupt:
         print("\n[+] Monitor finalizado por el usuario. Cerrando...")
 
-<<<<<<< HEAD
-# ===================== MONITOREO =====================
-def monitorear_defensa():
-    print(f"[*] Defensa activa. Monitorizando accesos peligrosos...")
-    timestamp = datetime.now().strftime("%H:%M:%S")
-    print(f"[*] Ignorando eventos anteriores a {timestamp}\n")
 
-    try:
-        while True:
-            resultado = subprocess.run(
-                ["ausearch", "-k", CLAVE_DEFENSA, "-ts", timestamp, "--format", "raw"],
-                stdout=subprocess.PIPE
-            )
-            logs = resultado.stdout.decode().split("\n\n")
-
-            for log in logs:
-                if log and log not in eventos_defensa:
-                    uid_line = next((line for line in log.splitlines() if "uid=" in line and "auid=" in line), None)
-                    uid = "desconocido"
-                    usuario = "desconocido"
-                    ip = "localhost"
-                    recurso = "indeterminado"
-
-                    if uid_line:
-                        try:
-                            partes = uid_line.split()
-                            for parte in partes:
-                                if parte.startswith("uid="):
-                                    uid = int(parte.split("=")[1])
-                                    usuario = pwd.getpwuid(uid).pw_name
-                        except:
-                            pass
-
-                    exe_line = next((line for line in log.splitlines() if "exe=" in line), None)
-                    if exe_line:
-                        recurso = exe_line.split("exe=")[-1].strip().split()[0]
-
-                    addr_line = next((line for line in log.splitlines() if "addr=" in line), None)
-                    if addr_line and "addr=" in addr_line:
-                        ip = addr_line.split("addr=")[-1].strip().split()[0]
-
-                    if any(recurso.startswith(path) for path in SITIOS_RESTRINGIDOS) or any(cmd in recurso for cmd in COMANDOS_PELIGROSOS):
-                        print("[DEFENSA] Actividad sospechosa detectada.")
-                        print(f"  ➤ Usuario: {usuario}")
-                        print(f"  ➤ IP: {ip}")
-                        print(f"  ➤ Recurso: {recurso}")
-                        registrar_log2(usuario, ip, recurso)
-                        enviar_alerta_gmail2(usuario, ip, recurso)
-
-                    eventos_defensa.add(log)
-
-            time.sleep(INTERVALO)
-
-    except KeyboardInterrupt:
-        print("\n[+] Monitor finalizado por el usuario. Cerrando...")
-
-=======
->>>>>>> parent of 955424f (prueba nueva funcionalidad)
 if __name__ == "__main__":
     monitorear_accesos()
-    monitorear_defensa()
 
