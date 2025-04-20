@@ -23,7 +23,7 @@ _Built with the tools and technologies:_
 
 ## Overview
 
-**monitoring_tool** is a robust monitoring tool designed to safeguard sensitive files by detecting unauthorized access in real-time.
+**monitoring_tool** is a security tool designed to monitor and protect critical files from unauthorized access. The tool specifically targets sensitive files such as tarjetas_bancarias.txt, providing continuous surveillance to prevent malicious activity. When an unauthorized access attempt is detected, the tool immediately logs the event, blocks access to the file, and sends email alerts to administrators. This tool ensures that critical data is always protected, even during system operation.
 
 ### Why monitoring_tool?
 
